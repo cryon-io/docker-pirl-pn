@@ -1,0 +1,42 @@
+#!/bin/sh -e
+# PIRL Premium Node docker template
+#  Copyright © 2019 cryon.io
+#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as published
+#  by the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+#
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+#  Contact: cryi@tutanota.com
+
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+export PWD=/home/pirl
+export HOME=/home/pirl
+#export IPFS_PATH=/home/pirl/marlin/.marlin
+while read line; do export $line; done < /home/pirl/.env
+# pipe stderr to stdout and run app via uwsgi
+/bin/sleep 5
+exec 2>&1
+if [ ! -d "/home/pirl/.marlin/" ]; then 
+	mkdir /home/pirl/.marlin/
+fi
+
+if [ ! -f /home/pirl/.marlin/config ]; then
+        printf "\n\n initializing marlin ... \n\n"
+	rm -rf /home/pirl/.marlin/*
+        /usr/bin/marlin init 
+        #/usr/bin/marlin config Datastore.StorageMax "20GB"
+	if [ ! -f /home/pirl/.marlin/config ]; then
+  		echo "Failed to initialize marlin..."
+                exit 1
+	fi
+fi
+exec /usr/bin/marlin daemon

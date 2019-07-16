@@ -1,0 +1,10 @@
+.vscode
+data/*
+!data/marlin/
+!data/pirl/
+
+data/marlin/*
+data/pirl/*
+
+!/**/.gitkeep
+docs
