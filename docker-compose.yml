@@ -40,7 +40,7 @@ services:
       - "./data/pirl:/home/pirl/.pirl:rw"
       - "./data/marlin:/home/pirl/.marlin:rw"
       - "./.env:/home/pirl/.env:ro"
-    pids_limit: 75
+    pids_limit: 100
     labels:
       - autoheal=true
     env_file:
