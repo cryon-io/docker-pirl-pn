@@ -28,6 +28,11 @@ services:
       - AUTOHEAL_DELAY=30
       - AUTOHEAL_INTERVAL=5
       - STOP_TIMEOUT=120
+    logging:
+      options:
+        max-size: '10m'
+        max-file: '4'
+      driver: json-file
 
   mn:
     restart: always
@@ -45,3 +50,8 @@ services:
       - autoheal=true
     env_file:
       - "./.env"
+    logging:
+      options:
+        max-size: '10m'
+        max-file: '4'
+      driver: json-file
