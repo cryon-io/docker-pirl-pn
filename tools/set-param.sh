@@ -27,19 +27,19 @@ VALUE_FOR_SED=$(echo "$VALUE" | sed -e 's/[\/&]/\\&/g')
 
 case $PARAM in
     MARLIN_VERSION)
-        if grep "MARLIN_VERSION=" "$BASEDIR/../containers/limits.conf" > /dev/null; then
-            TEMP=$(sed "s/MARLIN_VERSION=.*/MARLIN_VERSION=$VALUE_FOR_SED/g" "$BASEDIR/../containers/limits.conf")
-            printf "%s" "$TEMP" > "$BASEDIR/../containers/limits.conf"
+        if grep "MARLIN_VERSION=" "$BASEDIR/../container/limits.conf" > /dev/null; then
+            TEMP=$(sed "s/MARLIN_VERSION=.*/MARLIN_VERSION=$VALUE_FOR_SED/g" "$BASEDIR/../container/limits.conf")
+            printf "%s" "$TEMP" > "$BASEDIR/../container/limits.conf"
         else
-            printf "MARLIN_VERSION=%s" "$VALUE" >> "$BASEDIR/../containers/limits.conf"
+            printf "\nMARLIN_VERSION=%s" "$VALUE" >> "$BASEDIR/../container/limits.conf"
         fi
     ;;
     NODE_VERSION) 
-        if grep "NODE_VERSION=" "$BASEDIR/../containers/limits.conf"  > /dev/null; then
-            TEMP=$(sed "s/NODE_VERSION=.*/NODE_VERSION=$VALUE_FOR_SED/g" "$BASEDIR/../containers/limits.conf")
-            printf "%s" "$TEMP" > "$BASEDIR/../containers/limits.conf"
+        if grep "NODE_VERSION=" "$BASEDIR/../container/limits.conf"  > /dev/null; then
+            TEMP=$(sed "s/NODE_VERSION=.*/NODE_VERSION=$VALUE_FOR_SED/g" "$BASEDIR/../container/limits.conf")
+            printf "%s" "$TEMP" > "$BASEDIR/../container/limits.conf"
         else 
-            printf "NODE_VERSION=%s" "$VALUE" >> "$BASEDIR/../containers/limits.conf"
+            printf "\nNODE_VERSION=%s" "$VALUE" >> "$BASEDIR/../container/limits.conf"
         fi
     ;;
     NO_PORTS)

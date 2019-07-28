@@ -22,8 +22,8 @@ GIT_INFO=$(curl -sL "https://git.pirl.io/api/v4/projects/63/releases")
 URL=$(printf "https://git.pirl.io/community/pirl%s" "$(printf "%s" "$GIT_INFO" | jq .[0].description | awk -F"|" '{for(i=1;i<=NF;i++){if(match($i,/Masternode-Premium.*?/))print $(i+1)}}' | sed 's/.*\[.*\](\(.*\)).*/\1/g')")
 
 if [ -f "./limits.conf" ]; then 
-    if grep "NODE_BINARY=" "./limits.conf"; then 
-        NODE_BINARY=$(grep "NODE_BINARY=" "./limits.conf" | sed 's/NODE_BINARY=//g')
+    if grep "NODE_VERSION=" "./limits.conf"; then 
+        NODE_BINARY=$(grep "NODE_VERSION=" "./limits.conf" | sed 's/NODE_VERSION=//g')
         if [ -n "$NODE_BINARY" ] && [ ! "$NODE_BINARY" = "auto" ]; then
             URL=$NODE_BINARY
         fi
