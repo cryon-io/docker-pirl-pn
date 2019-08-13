@@ -18,6 +18,10 @@
 #
 #  Contact: cryi@tutanota.com
 
+if ! /usr/bin/pirl --exec "admin.nodeInfo.enode" attach ipc://./home/pirl/.pirl/pirl.ipc; then
+    exit 0
+fi
+
 RESULT=$(curl -s -X POST -w "\n%{http_code}\n" --url http://localhost:6588 \
                                         --header 'Cache-Control: no-cache' \
                                         --header 'Content-Type: application/json' \
